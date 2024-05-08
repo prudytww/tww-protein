@@ -2,6 +2,7 @@
 /**
  * Plugin Name: TWW Protein
  * Author: The Wellness Way
+ * Description: A plugin to calculate protein intake.
  * Version: 1.0.0
  */
 if(!defined('ABSPATH')) {
