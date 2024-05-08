@@ -1,0 +1,228 @@
+:root {
+    --brand-green: rgb(128, 183, 65);
+    --brand-grey: rgb(136, 136, 136);
+    --border-grey: rgb(204, 204, 204);
+    --border-grey-light: rgb(238, 238, 238);
+
+    --tww-green: #80b741;
+    --tww-dark-grey: #414444;
+    --tww-medium-grey: #6d6d6d;
+    --tww-medium-light-grey: #a8a8a8;
+    --tww-light-grey: #ddddde;
+    --tww-beige: #dcd4cb;
+
+    --tww-white: white;
+
+    --black: rgb(0, 0, 0);
+    --red: rgb(153, 27, 27);
+
+    --active: rgb(220, 252, 231);
+    --active-alt: rgb(22, 101, 52);
+    --canceled: var(--red);
+    --pending: rgb(255, 255, 0);
+}
+
+.protein-calculator {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.protein-calculator__form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.protein-calculator__form-group {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.protein-calculator__label {
+   width: 30%;
+   margin-right: 20px;
+}
+
+.protein-calculator__goal {
+
+}
+
+.protein-calculator__inputs label {
+    display: block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: var(--tww-white);
+}
+
+.protein-calculator__inputs--radio {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.protein-calculator__inputs--number-small {
+    display: flex;
+}
+
+.protein-calculator__inputs--number-small input {
+    width: 135px;
+}
+
+.protein-calculator__inputs--number-small .input-group:not(:last-child) {
+    margin-right: 10px;
+}
+
+.protein-calculator__inputs--radio label {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    border: 1px solid var(--tww-green);
+    border-radius: 4px;
+    background-color: var(--tww-white);
+    cursor: pointer;
+    color: var(--tww-green);
+    margin-right: 10px;
+}
+
+.protein-calculator__inputs--radio input[type="radio"]:checked + label {
+    background-color: var(--tww-green);
+    color: var(--tww-white);
+}
+
+.protein-calculator__radio {
+    display: none;
+}
+
+.protein-calculator__inputs--select select {
+    width: 300px;
+}
+
+@media (max-width: 768px) {
+    .protein-calculator__label,
+    .protein-calculator__inputs {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .protein-calculator__label {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+input[type="radio"].toggle:checked + label {
+    background-image: linear-gradient(to top,#969696,#727272);
+    box-shadow: inset 0 1px 6px rgba(41, 41, 41, 0.2),
+                        0 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: default;
+    color: #E6E6E6;
+    border-color: transparent;
+    text-shadow: 0 1px 1px rgba(40, 40, 40, 0.75);
+}
+
+input[type="radio"].toggle + label {
+    width: 3em;
+}
+
+input[type="radio"].toggle:checked + label.btn:hover {
+    background-color: inherit;
+    background-position: 0 0;
+    transition: none;
+}
+
+input[type="radio"].toggle-left + label {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+input[type="radio"].toggle-right + label {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.protein-calculator__toggle-units {
+    display: flex;
+}
+
+.protein-calculator__submit {
+    background: var(--tww-green);
+    color: var(--tww-white);
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    min-width: 300px;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+.protein-calculator-wrapper {
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 20px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.protein-calculator-wrapper .protein-calculator {
+    width: 70%;
+}
+
+@media (max-width: 768px) {
+    .protein-calculator-wrapper {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .protein-calculator-wrapper .protein-calculator {
+        width: 100%;
+    }
+}
+
+.protein-calculator input::placeholder,
+.protein-calculator select {
+    color: var(--tww-medium-light-grey) !important; /* Gray placeholder text */
+}
+
+.protein-calculator--results {
+    width: 30%;
+}
+
+.protein-calculator--results-inner {
+    padding: 20px;
+    text-align: center;
+}
+
+.protein-calculator--results__label label {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: normal;
+    color: var(--tww-dark-grey);
+    margin-bottom: 10px;
+}
+
+.protein-calculator--results__value {
+    font-size: 28px;
+    padding: 20px;
+}
+
+.protein-calculator__toggle-units .input-group span {
+    font-style: italic;
+}
+
+
+/* we want different styles for the selected radio button */

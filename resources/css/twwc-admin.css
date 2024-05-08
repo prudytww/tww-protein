@@ -1,0 +1,121 @@
+:root {
+    --brand-green: rgb(128, 183, 65);
+    --brand-grey: rgb(136, 136, 136);
+    --border-grey: rgb(204, 204, 204);
+    --border-grey-light: rgb(238, 238, 238);
+
+    --tww-green: #80b741;
+    --tww-dark-grey: #414444;
+    --tww-light-grey: #ddddde;
+    --tww-beige: #dcd4cb;
+
+    --tww-white: white;
+
+    --black: rgb(0, 0, 0);
+    --red: rgb(153, 27, 27);
+
+    --active: rgb(220, 252, 231);
+    --active-alt: rgb(22, 101, 52);
+    --canceled: var(--red);
+    --pending: rgb(255, 255, 0);
+}
+
+.toplevel_page_twwc-calculator .wp-first-item {
+    display: none;
+}
+
+.twwc--page-title-wrapper h1:before  {
+    background-image: url('../images/twwlogo70.webp');
+    background-size: 160px 70px;
+    background-position: center;
+    content: '';
+    width: 160px;
+    height: 70px;
+    display: block;
+    position: absolute;
+    left: 0;
+}
+
+.twwc--page-title-wrapper h1 {
+    position: relative;
+    padding-left: 180px;
+    display: flex;
+    align-items: center;
+    height: 120px
+}
+
+.age-range {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.age-range label {
+    width: 75px;
+    display: inline-block;
+    font-weight: 700;
+    font-size: 16px;
+    background-color: #f6f6f6;
+    border-radius: 4px;
+    padding: 5px;
+    text-align: center;
+    margin-right: 10px;
+    margin-top: 0;
+}
+
+.protien-calculator__goals {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.protein-calculator__goal {
+    background: var(--tww-beige);
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.protein-calculator__goal--static {
+    background: var(--tww-light-grey);
+}
+
+@media(max-widthL: 767px) {
+    .protein-calculator__goal {
+        width: 100%;
+    }
+}
+
+.protein-calculator__goal label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.protein-calculator__form-group span {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-style: italic;
+}
+
+.protein-calculator__goal input {
+    width: 75px;
+}
+
+.protein-calculator__form-group {
+    padding: 20px 0;
+}
+
+.protein-calculator__label label {
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.protein-calculator__pregnant {
+    width: 75px;
+}

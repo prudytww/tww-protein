@@ -1,0 +1,16 @@
+{
+    "name": "prudy/tww-protein",
+    "type": "wordpress-plugin",
+    "autoload": {
+        "psr-4": {
+            "TwwcProtein\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "The Wellness Way"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

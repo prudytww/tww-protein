@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "build": "webpack"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
