@@ -27,7 +27,7 @@
     <form method="post" action="options.php">
         <?php
             if( $active_tab === $settings_slug || $active_tab === $page_indentifier ) {
-                settings_fields('common-settings-options');
+                settings_fields('twwc-common-settings-options');
                 do_settings_sections($settings_slug);
                 submit_button();
             }
