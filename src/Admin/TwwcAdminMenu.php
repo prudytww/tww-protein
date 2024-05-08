@@ -117,7 +117,7 @@ class TwwcAdminMenu
             '<span class="required">*</span> '. __('Default Units & Measurement', 'twwc-calculator'),
             [$this, 'default_system_callback'],
             self::COMMON_SETTINGS_PAGE,
-            'common-settings-section',
+            'twwc-common-settings-section',
             ['max' => 32]
         );
 
@@ -126,7 +126,7 @@ class TwwcAdminMenu
             '<span class="required">*</span> '. __('Weight', 'twwc-calculator'),
             [$this, 'weight_callback'],
             self::COMMON_SETTINGS_PAGE,
-            'common-settings-section',
+            'twwc-common-settings-section',
             ['max' => 32]
         );
 
@@ -135,7 +135,7 @@ class TwwcAdminMenu
             '<span class="required">*</span> '. __('Pregnant/Lactating', 'twwc-calculator'),
             [$this, 'pregnant_callback'],
             self::COMMON_SETTINGS_PAGE,
-            'common-settings-section',
+            'twwc-common-settings-section',
             ['max' => 32]
         );
 
@@ -144,11 +144,11 @@ class TwwcAdminMenu
             '<span class="required">*</span> '. __('Activity Level', 'twwc-calculator'),
             [$this, 'activity_level_callback'],
             self::COMMON_SETTINGS_PAGE,
-            'common-settings-section',
+            'twwc-common-settings-section',
             ['max' => 32]
         );
 
-        register_setting('common-settings-options', $this->option_name, [$this, 'convert_and_update_options']);
+        register_setting('twwc-common-settings-options', $this->option_name, [$this, 'convert_and_update_options']);
     }
 
     public function convert_and_update_options(array $input) {
@@ -224,19 +224,6 @@ class TwwcAdminMenu
 
 
         return $valid_input;
-    }
-
-    /**
-     * Validate the client vars (make sure they don't exceed 32 characters)
-     *
-     * @param $input
-     * @return mixed
-     */
-    function validate_options_char_count(array $input) {
-        $schema = $this->fields;
-        $valid_input = $this->settings;
-
-        return $input;
     }
 
     public function get_page_identifier()
