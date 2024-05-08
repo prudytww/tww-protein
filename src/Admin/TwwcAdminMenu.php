@@ -105,7 +105,7 @@ class TwwcAdminMenu
 
     public function register_common_settings() {
         add_settings_section(
-            'common-settings-section',
+            'twwc-common-settings-section',
             __('TWWC Settings', 'twwc-calculator'),
             [$this, 'common_settings_output'],
             self::COMMON_SETTINGS_PAGE,

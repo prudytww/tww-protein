@@ -20,7 +20,7 @@
     ?>
 
     <h2 class="nav-tab-wrapper">
-        <a href="?page=" class="nav-tab <?php echo ($active_tab == $settings_slug || $active_tab == $page_indentifier) ? 'nav-tab-active' : ''; ?>">API Settings</a>
+        <a href="?page=" class="nav-tab <?php echo ($active_tab == $settings_slug || $active_tab == $page_indentifier) ? 'nav-tab-active' : ''; ?>">Settings</a>
         <!-- <a href="?page=" class="nav-tab <?php echo $active_tab == 'bluefield_identity-client-vars' ? 'nav-tab-active' : ''; ?>">Additional Variables (Advanced)</a> -->
     </h2>
 
