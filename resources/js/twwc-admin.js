@@ -1,10 +1,12 @@
 const calcData = {
-    system: window.twwc_admin_object?.settings?.system ?? 'imperial',
+    system: window.twwc_admin_object?.protein_settings?.system ?? 'imperial',
     weight: '',
     pregnant: 'No',
     activeLevel: '',
     goal: ''
 };
+
+console.log(twwc_admin_object, 'twwc_admin_object');
 
 const ui = {
     system: document.querySelectorAll('.protein-calculator__units-measurement'),

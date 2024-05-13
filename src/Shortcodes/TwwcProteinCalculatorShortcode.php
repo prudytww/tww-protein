@@ -1,5 +1,6 @@
 <?php
 namespace TwwcProtein\Shortcodes;
+
 use TwwcProtein\Options\TwwcOptions;
 /**
  * Shortcode for the protein calculator form
@@ -12,8 +13,16 @@ class TwwcProteinCalculatorShortcode {
     public function render_shortcode($atts, $content = null) {
         ob_start();
         $settings = TwwcOptions::get_option('settings', null);
-        if($settings && is_array($settings) && count($settings)) {
-            include TWWC_PROTEIN_PLUGIN_PATH . 'templates/protein-calculator.php';
+        $protein_settings = TwwcOptions::get_option('protein_settings', null);
+
+        $theme = $settings['theme_options']['default'] ?? 'compact';
+
+        if($protein_settings && is_array($protein_settings) && count($protein_settings)) {
+            if('compact' === $theme) {
+                require_once TWWC_PROTEIN_PLUGIN_PATH . 'templates/protein-calculator-compact.php';
+            } elseif('large' === $theme) {
+                require_once TWWC_PROTEIN_PLUGIN_PATH . 'templates/protein-calculator-large.php';
+            }
         } else {
             echo 'Calculator settings are empty. Please check the settings page.';
         }

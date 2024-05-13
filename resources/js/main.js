@@ -1,3 +1,11 @@
+const calcData = {
+    system: window.twwc_object?.protein_settings?.system ?? 'imperial',
+    weight: '',
+    pregnant: 'No',
+    activeLevel: '',
+    goal: ''
+};
+
 const ui = {
     protienForm: document.querySelector('.protein-calculator-form'),
     unitsMeasurement: document.querySelectorAll('.protein-calculator__units-measurement'),
@@ -11,9 +19,42 @@ const ui = {
     notPregnantFields: document.querySelectorAll('.protein-calculator__not-pregnant-fields'),
     activeLevel: document.querySelector('.protein-calculator__active-level'),
     weight: document.querySelector('.protein-calculator__weight'),
+    resultsHighEnd: document.querySelector('.protein-calculator--results__high-end span.the-result-high'),
+    
+    //Theme Compact
+    weightToggles: document.querySelectorAll('.protein-calculator__weight-toggle'),
+    goalSelect: document.querySelector('.protein-calculator__goal-select'),
 }
 
+const setCalcData = (key, value) => {
+    if (calcData.hasOwnProperty(key)) {
+        calcData[key] = value;
+    }
+};
+
+//Theme Compact
+const initWeightToggles = () => {
+    ui.weightToggles.forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+            let system = e.target.value;
+
+            if(system === 'imperial') {
+                document.getElementById('weight_lbs').classList.remove('hide');
+                document.getElementById('weight_kg').classList.add('hide');
+            } else {            
+                document.getElementById('weight_kg').classList.remove('hide');
+                document.getElementById('weight_lbs').classList.add('hide');
+            }
+
+            convertToSystem(system);
+        });
+    });
+}
+
+    
+    
 const calcSettings = window.twwc_object;
+console.log(calcSettings, 'calcSettings');
 
 const initUnitsAndMeasures = () => {
     if(ui.unitsMeasurement.length === 0) return;
@@ -89,26 +130,40 @@ const initCalculation = () => {
 
     ui.protienForm.addEventListener('input', (e) => {
         let totalProtein = null;
+        let totalProteinHigh = null;
 
         const system = document.querySelector('.protein-calculator__units-measurement:checked').value;
         const weight = getWeight(system);
-        const age = null
         const pregnant_and_lactating = calcData.pregnant;
         const activeLevel = ui.activeLevel.value;
-        const goal = calcData.goal;
+        let goal = '';
+        console.log(activeLevel, 'activeLevel');
+        if(ui.goalSelect && ui.goalSelect.length) {
+            goal = ui.goalSelect.value;
+            console.log(goal, 'goal yup');
+            console.log(pregnant_and_lactating, 'pregnant_and_lactating');
+            setCalcData('goal', goal);
+        } else {
+            goal = calcData.goal;
+            console.log(goal, 'goal');
+            console.log(pregnant_and_lactating, 'pregnant_and_lactating');
+        }
 
         if(system && 'No' !== pregnant_and_lactating) {
             totalProtein = pregnant(system, weight, pregnant_and_lactating);
         } else if (system && weight) {
             const baseProtein = basicProteinCalculation(system, weight, activeLevel, goal);
+            const baseProteinHigh = basicProteinCalculationHigh(system, weight, activeLevel, goal);
+
+            totalProteinHigh = baseProteinHigh;
             totalProtein = baseProtein;
         }
 
-        ui.results.innerText = "yeah" || '—';
-
         totalProtein = parseInt(totalProtein) || 0;
+        totalProteinHigh = parseInt(totalProteinHigh) || 0;
 
         ui.results.innerText = Math.round(totalProtein) || '—';
+        ui.resultsHighEnd.innerText = Math.round(totalProteinHigh) || '—';
     });
 }
 
@@ -123,18 +178,22 @@ const initActiveLevel = () => {
 }
 
 const basicProteinCalculation = (system, weight, activeLevel, goal, multiplier = 1.2) => {
-    multiplier = 'imperial' !== system ? parseFloat(calcSettings?.multiplier_weight_kg) : parseFloat(calcSettings?.multiplier_weight_lbs);
+    multiplier = 'imperial' !== system ? parseFloat(calcSettings?.protein_settings?.multiplier_weight_kg) : parseFloat(calcSettings?.protein_settings?.multiplier_weight_lbs);
     let prefix = 'm_';
     let suffix = 'imperial' !== system ? '_kg' : '_lbs';
     let goalField = prefix + goal + suffix;
-    
-    if (activeLevel) {
-        multiplier = parseFloat(calcSettings?.activity_level[activeLevel][prefix + activeLevel + suffix]);
+
+    console.log(goalField, 'goalField')
+    console.log(calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField], 'goalField')
+
+    if (activeLevel) { 
+        multiplier = parseFloat(calcSettings?.protein_settings?.activity_level[activeLevel][prefix + activeLevel + suffix]);
+        console.log(multiplier, 'multiplier')
     }
 
-
-    if(goal && calcSettings.activity_level[activeLevel].goal[goalField] !== undefined) {
-        multiplier = parseFloat(calcSettings?.activity_level[activeLevel].goal[goalField]);
+    if(goal && calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField] !== undefined) {
+        multiplier = parseFloat(calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField]);
+        console.log(multiplier, 'multiplier two')
     }
     
     const value = weight * multiplier;
@@ -142,21 +201,48 @@ const basicProteinCalculation = (system, weight, activeLevel, goal, multiplier =
     return value;
 }
 
+const basicProteinCalculationHigh = (system, weight, activeLevel, goal, multiplier = 1.2) => {
+    multiplier_high = 'imperial' !== system ? parseFloat(calcSettings?.protein_settings?.multiplier_weight_high_kg) : parseFloat(calcSettings?.protein_settings?.multiplier_weight_high_lbs);
+    let prefix = 'm_';
+    let suffix = 'imperial' !== system ? '_high_kg' : '_high_lbs';
+    let goalFieldHighEnd = prefix + goal + suffix;
+
+    console.log(goal, 'goaal')
+
+    if(activeLevel) {
+        multiplier_high = parseFloat(calcSettings?.protein_settings?.activity_level[activeLevel][prefix + activeLevel + suffix]);
+    }
+
+   if(goal && calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalFieldHighEnd] !== undefined) {
+        multiplier_high = parseFloat(calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalFieldHighEnd]);
+    } else {
+        //remove _high from the goal field
+        goalField = goalFieldHighEnd.replace('_high', '');
+        if(goal && calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField] !== undefined) {
+            multiplier_high = 0;
+        }
+    }
+    
+    const value = weight * multiplier_high;
+
+    return value;
+}
+
 const pregnant = (system, weight, pregnant_and_lactating) => {
     if(!weight) return;
 
-    const multiplier = 'imperial' !== system ? parseFloat(calcSettings?.multiplier_weight_kg) : parseFloat(calcSettings?.multiplier_weight_lbs);
+    const multiplier = 'imperial' !== system ? parseFloat(calcSettings?.protein_settings?.multiplier_weight_kg) : parseFloat(calcSettings?.protein_settings?.multiplier_weight_lbs);
     let baseProtein = weight * multiplier; 
 
     if ('I am pregnant' === pregnant_and_lactating) {
         // Ensure we add numbers, not strings
-        const pregnantValue = parseFloat(calcSettings?.pregnant);
+        const pregnantValue = parseFloat(calcSettings?.protein_settings?.pregnant);
         baseProtein += pregnantValue; // Perform addition before formatting
     }
 
     if('I am nursing' === pregnant_and_lactating) {
         // Ensure we add numbers, not strings
-        const nursingValue = parseFloat(calcSettings?.pregnant_lactating);
+        const nursingValue = parseFloat(calcSettings?.protein_settings?.pregnant_lactating);
         baseProtein += nursingValue; // Perform addition before formatting
     }
 
@@ -185,4 +271,5 @@ const getHeight = (system) => {
     initPregnant()
     initGoal()
     initCalculation()
+    initWeightToggles()
 })();

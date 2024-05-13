@@ -69,6 +69,21 @@
     flex-wrap: wrap;
 }
 
+.protein-calculator__activity-level-label {
+    font-weight: bold;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px 0 15px;
+}
+
+.protein-calculator__label .protein-calculator__activity-level-label   label {
+    margin-right: 5px;
+    font-weight: bold;
+    margin-left: 0;
+    margin-bottom:0;
+}
+
 .protein-calculator__goal {
     background: var(--tww-beige);
     display: flex;
@@ -118,4 +133,8 @@
 
 .protein-calculator__pregnant {
     width: 75px;
+}
+
+.protein-calculator__activity-level-option-name {
+    font-weight: 400;
 }

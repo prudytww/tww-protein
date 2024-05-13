@@ -15,13 +15,15 @@
 <div class="bluefield_content_wrapper">
     <?php
         $page_indentifier = 'twwc-calculator';
-        $settings_slug = TwwcAdminMenu::get_settings_page();
+        $settings_slug  = TwwcAdminMenu::get_settings_page();
+        $tab_two        =  TwwcAdminMenu::get_tab_two();
+
         $active_tab = isset( $_GET[ 'page' ] ) ? sanitize_text_field(wp_unslash($_GET[ 'page' ])) : $settings_slug;
     ?>
 
     <h2 class="nav-tab-wrapper">
-        <a href="?page=" class="nav-tab <?php echo ($active_tab == $settings_slug || $active_tab == $page_indentifier) ? 'nav-tab-active' : ''; ?>">Settings</a>
-        <!-- <a href="?page=" class="nav-tab <?php echo $active_tab == 'bluefield_identity-client-vars' ? 'nav-tab-active' : ''; ?>">Additional Variables (Advanced)</a> -->
+        <a href="?page=twwc-calculator" class="nav-tab <?php echo ($active_tab == $settings_slug || $active_tab == $page_indentifier) ? 'nav-tab-active' : ''; ?>">Settings</a>
+        <a href="?page=twwc-protein-calculator-settings" class="nav-tab <?php echo $active_tab == $tab_two ? 'nav-tab-active' : ''; ?>">Protein Calculator</a>
     </h2>
 
     <form method="post" action="options.php">
@@ -29,6 +31,10 @@
             if( $active_tab === $settings_slug || $active_tab === $page_indentifier ) {
                 settings_fields('twwc-common-settings-options');
                 do_settings_sections($settings_slug);
+                submit_button();
+            } elseif( $active_tab === $tab_two ) {
+                settings_fields('twwc-protein-calculator-options');
+                do_settings_sections($tab_two);
                 submit_button();
             }
         ?>
