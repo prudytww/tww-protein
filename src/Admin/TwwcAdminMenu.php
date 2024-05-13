@@ -118,10 +118,10 @@ class TwwcAdminMenu {
     }
 
     public function enqueue_admin_scripts() {
-        wp_enqueue_style( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/css/twwc-admin.css', [], '1.3', 'all' );
-        wp_enqueue_script( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/js/twwc-admin.js', [], '1.3', true );
+        wp_enqueue_style( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/css/twwc-admin.css', [], '1.32.1', 'all' );
+        wp_enqueue_script( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/js/twwc-admin.js', [], '1.32.1', true );
 
-        wp_enqueue_script( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/js/twwc-admin.js', [], '1.3', true );
+        wp_enqueue_script( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/js/twwc-admin.js', [], '1.32.1', true );
 
         //localize settings in script
         wp_localize_script('twwc-admin-js', 'twwc_admin_object', [

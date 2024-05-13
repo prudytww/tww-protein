@@ -35,6 +35,7 @@ const initSystem = () => {
 
 const convertToSystem = () => {
     const useMetric = calcData.system === 'metric';
+    console.log("useMetric", useMetric);
     ui.metricInputs.forEach(input => input.disabled = !useMetric);
     ui.imperialInputs.forEach(input => input.disabled = useMetric);
 };
