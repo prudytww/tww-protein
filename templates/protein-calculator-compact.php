@@ -5,7 +5,7 @@ $activity_level = $protein_settings['activity_level'] ?? null;
 
 <div class="protein-calculator protein-calculator--compact">
     <div class="protein-calculator-inner">
-    <form class="protein-calculator-form">
+        <form class="protein-calculator-form">
 
         <div class="protein-calculator__form-group protein-calculator__form-group--radio">
             <div class="protein-calculator__label">
@@ -17,11 +17,13 @@ $activity_level = $protein_settings['activity_level'] ?? null;
                 <input class="protein-calculator__weight protein-calculator__weight--kg <?php echo 'imperial' === $system ? 'hide' : '';  ?>" type="number" id="weight_kg" name="weight_kg" placeholder="Weight in Kilograms">
 
                 <div class="protein-calculator__inputs--radio-reg-label"> 
+                    <div>
                     <input step=".001" class="protein-calculator__weight-toggle protein-calculator__units-measurement"  type="radio" id="imperial" name="units" value="imperial" <?php echo 'imperial' === $system ? 'checked' : '';  ?>>
                     <label  for="imperial">lbs</label>
-                    
-                    <input step=".001" class="protein-calculator__weight-toggle protein-calculator__units-measurement" type="radio" id="metric" name="units" value="metric" <?php echo 'metric' === $system ? 'checked' : '';  ?>>
-                    <label for="metric">kg</label>
+                    </div>
+                    <div>
+                    <input step=".001" class="protein-calculator__weight-toggle protein-calculator__units-measurement" type="radio" id="metric" name="units" value="metric" <?php echo 'metric' === $system ? 'checked' : '';  ?>><label for="metric">kg</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,28 +62,30 @@ $activity_level = $protein_settings['activity_level'] ?? null;
             </div>
         </div>  
     </form>
-    <div class="protein-calculator--results">
-        <div class="protein-calculator--results-inner">
-            <div class="protein-calculator--results-default">
-                <div class="protein-calculator--results__label">
-                    <label for="protein">Protein Intake</label>
+        <div class="protein-calculator--results">
+            <div class="protein-calculator--results-inner">
+                <div class="protein-calculator--results-default">
+                    <div class="protein-calculator--results__label">
+                        <label for="protein">Protein Intake</label>
+                    </div>
+                    <div class="protein-calculator--results__value">
+                        <span class='the-result'>&mdash;</span><span id="calculator-system-suffix">g</span>
+                    </div>
                 </div>
-                <div class="protein-calculator--results__value">
-                    <span class='the-result'>&mdash;</span><span id="calculator-system-suffix">g</span>
-                </div>
-            </div>
 
-            <div class="protein-calculator--results-high-end">
-                <div class="protein-calculator--results__label">
-                    <label for="protein">Protein Intake <br /> (High End)</label>
+                <div class="protein-calculator--results-high-end">
+                    <div class="protein-calculator--results__label">
+                        <label for="protein">Protein Intake <br /> (High End)</label>
+                    </div>
+                    <div class="protein-calculator--results__high-end">
+                        <span class='the-result-high'>&mdash;</span><span id="calculator-system-suffix">g</span>
+                    </div>
                 </div>
-                <div class="protein-calculator--results__high-end">
-                    <span class='the-result-high'>&mdash;</span><span id="calculator-system-suffix">g</span>
-                </div>
-            </div>
 
-            <div class="protein-message">
-                <span>*</span> Weight is required.
-            </div>
-    </div>
-</div>
+                <div class="protein-message">
+                    <span>*</span> Weight is required.
+                </div>
+            </div> <!-- Closing tag for protein-calculator--results-inner -->
+        </div> <!-- Closing tag for protein-calculator--results -->
+    </div><!-- Closing tag for protein-calculator-inner -->
+</div> <!-- Closing tag for protein-calculator -->

@@ -101,8 +101,7 @@
                     <label class="goal-label" for="goal-4">Weight Loss</label>
                 </div>
             </div>
-        </div>
-
+                            </div>
         
     </form>
 </div>
@@ -123,6 +122,7 @@
             </div>
             <div class="protein-calculator--results__high-end">
                 <span class='the-result-high'>&mdash;</span><span id="calculator-system-suffix">g</span>
+            </div>
         </div>
 
         <div class="protein-message">

@@ -118,10 +118,10 @@ class TwwcAdminMenu {
     }
 
     public function enqueue_admin_scripts() {
-        wp_enqueue_style( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/css/twwc-admin.css', [], '1.32.1', 'all' );
-        wp_enqueue_script( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/js/twwc-admin.js', [], '1.32.1', true );
+        wp_enqueue_style( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/css/twwc-admin.css', [], '1.32.2', 'all' );
+        wp_enqueue_script( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/js/twwc-admin.js', [], '1.32.2', true );
 
-        wp_enqueue_script( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/js/twwc-admin.js', [], '1.32.1', true );
+        wp_enqueue_script( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/js/twwc-admin.js', [], '1.32.2', true );
 
         //localize settings in script
         wp_localize_script('twwc-admin-js', 'twwc_admin_object', [
@@ -227,7 +227,7 @@ class TwwcAdminMenu {
             $valid_input['multiplier_weight_kg']    = $this->convert_multiplier($multiplier_weight_lbs, 'imperial');
 
             $multiplier_weight_high_lbs = $input['multiplier_weight_high_lbs'] ?? '';
-            $valid_input['multiplier_weight_high_lbs']   = $multiplier_weight_lbs;
+            $valid_input['multiplier_weight_high_lbs']   = $multiplier_weight_high_lbs;
             $valid_input['multiplier_weight_high_kg']    = $this->convert_multiplier($multiplier_weight_high_lbs, 'imperial');
            
 
@@ -270,6 +270,7 @@ class TwwcAdminMenu {
                 //Now add a high value as the previous are low values
                 $goal_maintain_high_lbs = 0 != $goal['m_maintain_high_lbs'] ? $goal['m_maintain_high_lbs'] : '';
                 $valid_input['activity_level'][$activity_level]['goal']['m_maintain_high_lbs'] = $goal_maintain_high_lbs;
+                $valid_input['activity_level'][$activity_level]['goal']['m_maintain_high_kg'] = $this->convert_multiplier($goal_maintain_high_lbs, 'imperial');
 
                 $goal_toning_lbs = 0 != $goal['m_toning_high_lbs'] ? $goal['m_toning_high_lbs'] : '';
                 $valid_input['activity_level'][$activity_level]['goal']['m_toning_high_lbs'] = $goal_toning_lbs;
@@ -311,7 +312,6 @@ class TwwcAdminMenu {
                 $valid_input['activity_level'][$activity_level]['m_' . $activity_level . '_high_lbs'] = $this->convert_multiplier($m_activity_level_high_kg, 'metric');
 
                 $goal_maintain_kg = 0 != $goal['m_maintain_kg'] ? $goal['m_maintain_kg'] : '';
-
                 $valid_input['activity_level'][$activity_level]['goal']['m_maintain_kg'] = $goal_maintain_kg;
                 $valid_input['activity_level'][$activity_level]['goal']['m_maintain_lbs'] = $this->convert_multiplier($goal_maintain_kg, 'metric');
 
@@ -329,7 +329,6 @@ class TwwcAdminMenu {
                 $valid_input['activity_level'][$activity_level]['goal']['m_weight_loss_lbs'] = $this->convert_multiplier($goal_weight_loss_kg, 'metric');
 
                 //Now add a high value as the previous are low values
-    
                 if(array_key_exists('m_maintain_high_kg', $goal) && 0 != $goal['m_maintain_high_kg']) {
                     $goal_maintain_high_kg = $goal['m_maintain_high_kg'] && 0 != $goal['m_maintain_high_kg'] ? $goal['m_maintain_high_kg'] : '';
                     $valid_input['activity_level'][$activity_level]['goal']['m_maintain_high_kg'] = $goal_maintain_high_kg;
