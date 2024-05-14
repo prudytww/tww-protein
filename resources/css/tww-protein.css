@@ -42,12 +42,23 @@
     padding: 10px 0;
 }
 
-.protein-calculator__label {
-   width: 30%;
-   margin-right: 20px;
+.protein-calculator--large {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
-.protein-calculator__inputs {
+.protein-calculator--large .protein-calculator__label {
+   width: 25%;
+   margin-right: 20px;
+   font-size: 15px;
+}
+
+.protein-calculator--large .protein-calculator__inputs {
+    max-width: 350px;
+} 
+
+.protein-calculator--compact .protein-calculator__inputs {
     max-width: 400px;
 } 
 
@@ -187,10 +198,6 @@ input[type="radio"].toggle-right + label {
     justify-content: space-between;
 }
 
-.protein-calculator-wrapper .protein-calculator {
-    width: 70%;
-}
-
 @media (max-width: 768px) {
     .protein-calculator-wrapper {
         justify-content: center;
@@ -207,14 +214,15 @@ input[type="radio"].toggle-right + label {
     color: var(--tww-medium-light-grey) !important; /* Gray placeholder text */
 }
 
-.protein-calculator--results {
+.protein-calculator--compact .protein-calculator--results {
     width: 50%;
     max-width: 300px;
     padding-left: 20px;
 }
 
 @media(max-width: 768px) {
-    .protein-calculator--results {
+    .protein-calculator--results,
+    .protein-calculator--compact .protein-calculator--results {
         width:100%;
         max-width: 100%;
         padding-left: 0;

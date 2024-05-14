@@ -45,14 +45,14 @@ require_once 'vendor/autoload.php';
             if(strpos(site_url(), 'localhost') !== false) {
                 $version = null;
             } else {
-                $version = '1.0.54';
+                $version = '1.0.58';
             }
             wp_register_style('tww-protein', TWWC_PROTEIN_PLUGIN_URL . 'resources/css/tww-protein.css', [], $version, 'all');
             wp_enqueue_style('tww-protein');
         }
 
         function twwc_register_scripts() {
-            $version = '1.0.54';
+            $version = '1.0.58';
             wp_register_script('twwc-protein-object', TWWC_PROTEIN_PLUGIN_URL . 'resources/js/vars.js',  [], null, true);
             wp_enqueue_script('twwc-protein-object');
 

@@ -1,6 +1,6 @@
 
 <div class="protein-calculator-wrapper">
-    <div class="protein-calculator">
+    <div class="protein-calculator protein-calculator--large">
         <form class="protein-calculator-form">
             <div class="protein-calculator__form-group protein-calculator__form-group--radio">
                 <div class="protein-calculator__label">
@@ -114,11 +114,8 @@
                         <span>*</span> Weight is required.
                     </div>
                 </div>
-                <!-- <div class="protein-calculator__form-group">
-                    <button id="protein-calculator__submit" class="protein-calculator__submit">Calculate</button>
-                </div> -->
             </div>
-        </div>
-    </div>
-</div>
+        </div><!-- Close protein-calculator--results -->
+    </div><!-- Close protein-calculator -->
+</div><!-- Close protein-calculator-wrapper -->
 
