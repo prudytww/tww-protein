@@ -135,6 +135,7 @@ const initCalculation = () => {
         const weight = getWeight(system);
         const pregnant_and_lactating = calcData.pregnant;
         const activeLevel = ui.activeLevel.value;
+
         let goal = '';
         console.log(activeLevel, 'activeLevel');
         if(ui.goalSelect && ui.goalSelect.length) {
@@ -182,15 +183,15 @@ const basicProteinCalculation = (system, weight, activeLevel, goal, multiplier =
     let suffix = 'imperial' !== system ? '_kg' : '_lbs';
     let goalField = prefix + goal + suffix;
 
-    console.log(goalField, 'goalField')
-    console.log(calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField], 'goalField')
 
     if (activeLevel) { 
+        console.log(goalField, 'goalField')
+        console.log(calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField], 'goalField')
         multiplier = parseFloat(calcSettings?.protein_settings?.activity_level[activeLevel][prefix + activeLevel + suffix]);
         console.log(multiplier, 'multiplier')
     }
 
-    if(goal && calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField] !== undefined) {
+    if(activeLevel && goal && calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField] !== undefined) {
         let goalMultiplier = calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField];
 
         multiplier = parseFloat(calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField]);
@@ -214,12 +215,12 @@ const basicProteinCalculationHigh = (system, weight, activeLevel, goal, multipli
         multiplier_high = parseFloat(calcSettings?.protein_settings?.activity_level[activeLevel][prefix + activeLevel + suffix]);
     }
 
-   if(goal && calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalFieldHighEnd] !== undefined) {
+   if(activeLevel &&  goal && calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalFieldHighEnd] !== undefined) {
         multiplier_high = parseFloat(calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalFieldHighEnd]);
     } else {
         //remove _high from the goal field
         goalField = goalFieldHighEnd.replace('_high', '');
-        if(goal && calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField] !== undefined) {
+        if(activeLevel && goal && calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField] !== undefined) {
             multiplier_high = 0;
         }
     }
