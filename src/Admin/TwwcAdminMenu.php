@@ -248,8 +248,8 @@ class TwwcAdminMenu {
                 $valid_input['activity_level'][$activity_level]['m_' . $activity_level . '_kg'] = $this->convert_multiplier($m_activity_level_lbs, 'imperial');
 
                 $m_activity_level_high_lbs = 0 != $value['m_' . $activity_level . '_high_lbs'] ? $value['m_' . $activity_level . '_high_lbs'] : '';
-                $valid_input['activity_level'][$activity_level]['m_' . $activity_level . '_lbs'] =  0 != $m_activity_level_high_lbs ? $m_activity_level_high_lbs : '';
-                $valid_input['activity_level'][$activity_level]['m_' . $activity_level . '_kg'] = $this->convert_multiplier($m_activity_level_high_lbs, 'imperial');
+                $valid_input['activity_level'][$activity_level]['m_' . $activity_level . '_high_lbs'] =  0 != $m_activity_level_high_lbs ? $m_activity_level_high_lbs : '';
+                $valid_input['activity_level'][$activity_level]['m_' . $activity_level . '_high_kg'] = $this->convert_multiplier($m_activity_level_high_lbs, 'imperial');
 
                 $goal_maintain_lbs = 0 != $goal['m_maintain_lbs'] ? $goal['m_maintain_lbs'] : '';
                 $valid_input['activity_level'][$activity_level]['goal']['m_maintain_lbs'] = $goal_maintain_lbs;
