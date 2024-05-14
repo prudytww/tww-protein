@@ -220,6 +220,7 @@ class TwwcAdminMenu {
         $valid_input['system'] = $system;
         $valid_input['pregnant'] = 0 != $input['pregnant'] ? $input['pregnant'] : '';
         $valid_input['pregnant_lactating'] = (0 !=  $input['pregnant_lactating']) ?  $input['pregnant_lactating'] : '';
+        $valid_input['defaults'] = $input['defaults'] ?? [];
 
         if('imperial' === $system) {
             $multiplier_weight_lbs = $input['multiplier_weight_lbs'] ?? '';     
@@ -244,7 +245,7 @@ class TwwcAdminMenu {
                 $activity_level = str_replace(' ', '_', strtolower($activity_level));
 
                 $m_activity_level_lbs = 0 != $value['m_' . $activity_level . '_lbs'] ? $value['m_' . $activity_level . '_lbs'] : '';
-                $valid_input['activity_level'][$activity_level]['m_' . $activity_level . '_lbs'] =  0 != $m_activity_level_lbs ? $m_activity_level_lbs : '';
+                $valid_input['activity_level'][$activity_level]['m_' . $activity_level . '_lbs'] =  $m_activity_level_lbs;
                 $valid_input['activity_level'][$activity_level]['m_' . $activity_level . '_kg'] = $this->convert_multiplier($m_activity_level_lbs, 'imperial');
 
                 $m_activity_level_high_lbs = 0 != $value['m_' . $activity_level . '_high_lbs'] ? $value['m_' . $activity_level . '_high_lbs'] : '';
@@ -493,6 +494,8 @@ class TwwcAdminMenu {
 
             $activity_level_enabled = 0 ===intval($activity_level_value[$activity_level]['enable']) ? intval($activity_level_value[$activity_level]['enable']) : 1;
 
+            $activity_level_default = $options['defaults']['activity_level'] ?? '';
+
             $activity_level_value_lbs = $activity_level_value[$activity_level]['m_'. $activity_level .'_lbs'] ?? '';
             $activity_level_value_kg = $activity_level_value[$activity_level]['m_'. $activity_level .'_kg'] ?? '';
             $activity_level_value_high_kg = $activity_level_value[$activity_level]['m_'. $activity_level .'_high_kg'] ?? '';
@@ -527,6 +530,7 @@ class TwwcAdminMenu {
                     <div class='protein-calculator__enable'>
                         <label for='activity-level'>".esc_html($activity_level)."</label>
                         <input type='checkbox' name='".esc_attr($this->option_name_protein)."[activity_level][" . esc_attr($activity_level) ."][enable]' value='1' ".(isset($activity_level_enabled) && 1 == $activity_level_enabled ? 'checked' : '')." /> <span>Enable</span>
+                        <input type='radio' name='".esc_attr($this->option_name_protein)."[defaults][activity_level]' value='".esc_html($activity_level)."' ".($activity_level_default == $activity_level ? 'checked' : '')." /> <span>Set as Default</span>
                     </div>
                     
                     <div class='protein-calculator__activity-level-label'>

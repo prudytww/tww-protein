@@ -54,7 +54,6 @@ const initWeightToggles = () => {
     
     
 const calcSettings = window.twwc_object;
-console.log(calcSettings, 'calcSettings');
 
 const initUnitsAndMeasures = () => {
     if(ui.unitsMeasurement.length === 0) return;
@@ -192,6 +191,8 @@ const basicProteinCalculation = (system, weight, activeLevel, goal, multiplier =
     }
 
     if(goal && calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField] !== undefined) {
+        let goalMultiplier = calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField];
+
         multiplier = parseFloat(calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField]);
         console.log(multiplier, 'multiplier two')
     }

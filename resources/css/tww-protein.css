@@ -208,12 +208,16 @@ input[type="radio"].toggle-right + label {
 }
 
 .protein-calculator--results {
-    width: 30%;
+    width: 50%;
+    max-width: 300px;
+    padding-left: 20px;
 }
 
 @media(max-width: 768px) {
     .protein-calculator--results {
         width:100%;
+        max-width: 100%;
+        padding-left: 0;
     }
 }
 
@@ -349,14 +353,20 @@ protein-calculator--results-high-end {
         width: 100%;
 }
 
-.protein-calculator--compact  .protein-calculator-inner > div {
-        width: 30%;
+.protein-calculator--compact  .protein-calculator-inner > form,
+protein-calculator--compact  .protein-calculator-inner > div {
+        width: 50%;
 }
 
 .protein-calculator--compact  .protein-calculator__inputs.protein-calculator__inputs--select,
+.protein-calculator--compact  .protein-calculator__weight,
 .protein-calculator--compact  .protein-calculator__inputs.protein-calculator__inputs--select select {
     width: 100%;
     max-width: 400px;
+}
+
+.protein-calculator--compact  .protein-calculator__inputs {
+    width: 100%;
 }
 
 .protein-calculator--compact  .protein-calculator-inner {
@@ -384,7 +394,45 @@ protein-calculator--results-high-end {
         width: 100%;
     }
 
+    .protein-calculator--compact  .protein-calculator-inner > form {
+        margin-bottom: 20px;
+    }
+
     .protein-calculator--compact  .protein-calculator--compact select {
         width: 100%;
     }
 }
+
+
+/* Customizing the focus outline */
+.protein-calculator--compact input:focus,
+.protein-calculator--compact select:focus {
+    border-color: var(--tww-green) !important; /* Change border color to green when focused */
+}
+
+
+
+/* Default style for radio button and label */
+.protein-calculator__inputs--radio-reg-label input[type="radio"] {
+    display: none; /* Hide the default radio button */
+}
+
+.protein-calculator__inputs--radio-reg-label label {
+    background-color: #f0f0f0; /* Light grey background for labels */
+    padding: 5px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Style for checked state */
+.protein-calculator__inputs--radio-reg-label input[type="radio"]:checked + label {
+    background-color: var(--tww-green); /* Green background for checked state */
+    color: white; /* White text color for better readability */
+}
+
+/* Hover effect for labels */
+.protein-calculator__inputs--radio-reg-label label:hover {
+    background-color: #ddd; /* Slightly darker background on hover */
+}
+

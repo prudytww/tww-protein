@@ -1,6 +1,8 @@
 <?php 
 $system = $protein_settings['system'] ?? null;
 $activity_level = $protein_settings['activity_level'] ?? null;
+$activity_level_default = $protein_settings['defaults'] && $protein_settings['defaults']['activity_level'] ? $protein_settings['defaults']['activity_level'] : null;
+
 ?>
 
 <div class="protein-calculator protein-calculator--compact">
@@ -37,12 +39,15 @@ $activity_level = $protein_settings['activity_level'] ?? null;
             <div class="protein-calculator__inputs protein-calculator__inputs--select">
                 <?php $activity_level = $protein_settings['activity_level'] ?? null; ?>
                 <select class="protein-calculator__active-level" name="activity" id="activity">
-                    
+                    <?php if(!$activity_level_default || 0 == $protein_settings['activity_level'][$activity_level_default]['enable']) : ?>
+                        <option deafult value="">-- Choose Activity Level --</option>
+                    <?php endif; ?>
+
                     <?php foreach($activity_level as $key => $value) : ?>
                         <?php $label = $value['label'] ? $value['label'] : ucwords(str_replace('_', ' ', $key)); ?>
 
                         <?php if($value['enable']) :?>
-                            <option value="<?php echo $key; ?>"><?php echo $label; ?></option>
+                            <option <?php echo $key === $activity_level_default ? 'default' : '' ; ?> value="<?php echo $key; ?>"><?php echo $label; ?></option>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </select>
@@ -62,8 +67,27 @@ $activity_level = $protein_settings['activity_level'] ?? null;
             </div>
         </div>  
     </form>
+    <?php
+        $background_color = $protein_settings['results']['style']['background_color'] ?? '#E6F1D9';
+        $border_radius = $protein_settings['results']['style']['border_radius'] ?? '20px';
+        $padding = $protein_settings['results']['style']['padding'] ?? '40px 20px';
+
+        $styles = [
+            'background-color' => $background_color,
+            'border-radius' => $border_radius,
+            'padding' => $padding
+        ];
+
+        //format style string to echo in the div
+        $style_string = '';
+        foreach($styles as $key => $value) {
+            if($key && $value) {
+                $style_string .= $key . ':' . $value . ';';
+            }
+        }
+    ?>
         <div class="protein-calculator--results">
-            <div class="protein-calculator--results-inner">
+            <div class="protein-calculator--results-inner" style="<?php echo $style_string; ?>">
                 <div class="protein-calculator--results-default">
                     <div class="protein-calculator--results__label">
                         <label for="protein">Protein Intake</label>
@@ -82,8 +106,10 @@ $activity_level = $protein_settings['activity_level'] ?? null;
                     </div>
                 </div>
 
-                <div class="protein-message">
-                    <span>*</span> Weight is required.
+                <div class="protein-message" style="margin-top: 20px;">
+                    <div class="protein-data-requirements" style="font-size: 13px;">
+                        <span>*</span> Weight is required.
+                    </div>
                 </div>
             </div> <!-- Closing tag for protein-calculator--results-inner -->
         </div> <!-- Closing tag for protein-calculator--results -->
