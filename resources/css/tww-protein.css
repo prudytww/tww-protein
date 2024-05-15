@@ -220,6 +220,12 @@ input[type="radio"].toggle-right + label {
     padding-left: 20px;
 }
 
+.protein-calculator--compact .protein-calculator--results.protein-calculator--results-range {
+    max-width: 400px;
+}
+
+
+
 @media(max-width: 768px) {
     .protein-calculator--results,
     .protein-calculator--compact .protein-calculator--results {

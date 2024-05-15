@@ -6,7 +6,7 @@
                 <div class="protein-calculator__label">
                     <label class="main-label" for="Units">Units & Measurement</label>
                 </div>
-
+                
                 <div class="protein-calculator__inputs protein-calculator__inputs--radio">
                     <input class="protein-calculator__units-measurement protein-calculator__radio" type="radio" id="imperial" name="units" <?php echo 'imperial' === $protein_settings['system'] ? 'checked' : ''; ?>  value="imperial">
                     <label for="imperial">Imperial</label>
@@ -90,16 +90,31 @@
             </div>
         </form>
 
-        <div class="protein-calculator--results">
+        <div class="protein-calculator--results protein-calculator--results-range">
             <div class="protein-calculator--results-inner">
+
                 <div class="protein-calculator--results-low-end">
                     <div class="protein-calculator--results__label">
-                        <label for="protein">Protein Intake</label>
+                        <label for="protein">Your Optimal Protein Intake</label>
+                        <span class='the-result'></span><div class="result-separator">&mdash;<span><span class='the-result-high'></span>g</span>g
                     </div>
                     <div class="protein-calculator--results__value">
                         <span class='the-result'>&mdash;</span><span id="calculator-system-suffix">g</span>
                     </div>
                 </div>
+
+                
+                
+                <!-- <div class="protein-calculator--results-low-end">
+                    <div class="protein-calculator--results__label">
+                        <label for="protein">Your Optimal Protein Intake</label>
+                        <div class=""><span>
+                    </div>
+                    <div class="protein-calculator--results__value">
+                        <span class='the-result'>&mdash;</span><span id="calculator-system-suffix">g</span>
+                    </div>
+                </div>
+
                 <div class="protein-calculator--results-high-end">
                     <div class="protein-calculator--results__label">
                         <label for="protein">Protein Intake <br />  (High End)</label>
@@ -113,7 +128,7 @@
                     <div class="protein-data-requirements" style="font-size: 13px;">
                         <span>*</span> Weight is required.
                     </div>
-                </div>
+                </div> -->
             </div>
         </div><!-- Close protein-calculator--results -->
     </div><!-- Close protein-calculator -->

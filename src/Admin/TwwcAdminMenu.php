@@ -221,6 +221,7 @@ class TwwcAdminMenu {
         $valid_input['pregnant'] = 0 != $input['pregnant'] ? $input['pregnant'] : '';
         $valid_input['pregnant_lactating'] = (0 !=  $input['pregnant_lactating']) ?  $input['pregnant_lactating'] : '';
         $valid_input['defaults'] = $input['defaults'] ?? [];
+        $valid_input['content'] = isset($input['content']) && is_array($input['content']) ? $input['content'] : [];
 
         if('imperial' === $system) {
             $multiplier_weight_lbs = $input['multiplier_weight_lbs'] ?? '';     
@@ -392,8 +393,8 @@ class TwwcAdminMenu {
 
     public function protein_calculator_settings_output() {
         echo '
-        <p>Use the fields below to adjust settings used by the <a target="_blank" href="https://www.thewellnessway.com">The Wellness Way</a> protein calculator. Use shortode [twwc_protein_calculator] on any page to render the calculator.</p>
-        ';
+        <p>Use shortcode <span id="embed-shortcode" class="twwc_embed_shortcode" data-clipboard-text="[twwc_protein_calculator]">&lt;/&gt; [twwc_protein_calculator]</span> on any page to render the calculator.</p>
+        <p><a class="protein-calculator__default" target="_blank" href="#">Populate Demo Data</a> - <a class="protein-calculator__clear" target="_blank" href="#">Clear Data</a>';
     }
 
     public function default_theme_callback() {
@@ -490,9 +491,14 @@ class TwwcAdminMenu {
         /// I want to make the following echo a for each loop for the activity levels
         foreach($this->activity_levels as $activity_level) {
             $activity_level = str_replace(' ', '_', strtolower($activity_level));
+
+
+
             $activity_level_label = $activity_level_value[$activity_level]['label'] ?? null;
 
-            $activity_level_enabled = 0 ===intval($activity_level_value[$activity_level]['enable']) ? intval($activity_level_value[$activity_level]['enable']) : 1;
+            $activity_level_enabled = isset($activity_level_value[$activity_level]['enable']) 
+                ? (intval($activity_level_value[$activity_level]['enable']) === 0 ? intval($activity_level_value[$activity_level]['enable']) : 1) 
+                : 0;
 
             $activity_level_default = $options['defaults']['activity_level'] ?? '';
 
@@ -500,8 +506,6 @@ class TwwcAdminMenu {
             $activity_level_value_kg = $activity_level_value[$activity_level]['m_'. $activity_level .'_kg'] ?? '';
             $activity_level_value_high_kg = $activity_level_value[$activity_level]['m_'. $activity_level .'_high_kg'] ?? '';
             $activity_level_value_high_lbs = $activity_level_value[$activity_level]['m_'. $activity_level .'_high_lbs'] ?? '';
-
-
 
             $maintain_value_lbs = $activity_level_value[$activity_level]['goal']['m_maintain_lbs'] ?? '';
             $maintain_value_kg = $activity_level_value[$activity_level]['goal']['m_maintain_kg'] ?? '';
@@ -520,6 +524,7 @@ class TwwcAdminMenu {
             $muscle_growth_value_high_kg = $activity_level_value[$activity_level]['goal']['m_muscle_growth_high_kg'] ?? '';
             $weight_loss_value_high_lbs = $activity_level_value[$activity_level]['goal']['m_weight_loss_high_lbs'] ?? '';
             $weight_loss_value_high_kg = $activity_level_value[$activity_level]['goal']['m_weight_loss_high_kg'] ?? '';
+
 
             
 
@@ -556,7 +561,7 @@ class TwwcAdminMenu {
                             </div>
                         </div>
                         <div class='protein-calculator__goal'>
-                            <label for='sedentary-toning'>Toning</label>
+                            <label for='sedentary-toning'>Tone Up</label>
                             <div class='protein-calculator__multipliers'>
                                 <input class='protein-calculator__imperial-input' width='75' id='sedentary-toning' type='number' step='.001' name='".esc_attr($this->option_name_protein)."[activity_level][".esc_html($activity_level)."][goal][m_toning_lbs]' value='" . esc_attr($toning_value_lbs) . "' /><span>g/lb</span>
                                 <input class='protein-calculator__metric-input' width='75' id='sedentary-toning' type='number' step='.001' name='".esc_attr($this->option_name_protein)."[activity_level][".esc_html($activity_level)."][goal][m_toning_kg]' value='" . esc_attr($toning_value_kg) . "' /><span>g/kg</span>
@@ -621,19 +626,23 @@ class TwwcAdminMenu {
         ';
     }
 
-    public function remote_key_callback($args) {
-        $options = TwwcOptions::get_option($this->option_name);
-        $value = isset($options['remote_key']) ? $options['remote_key'] : '';
-        $class = !empty($value) ? 'has-value' : 'required-value-missing-notice';
-        $max = isset($args['max']) ? 'max="' . intval($args['max']) .'"': '';
-
-        echo "<input style='width: 275px' class='".esc_attr($class)."' id='remote-key' name='".esc_attr($this->option_name)."[remote_key]' type='text' value='" . esc_attr($value) . "' placeholder='Client Remote Key' ".esc_attr($max)." />";
-    }
-
-    public function common_settings_output_footer() {
-        echo '
-        <p></p>
-        ';
+    public function results_content_callback() {
+        $options = TwwcOptions::get_option($this->option_name_protein, []);
+        $content = isset($options['content']) && is_array($options['content']) && array_key_exists('results', $options['content']) ? $options['content']['results'] : '';
+        $editor_id = 'my_plugin_editor';
+        $name = $this->option_name_protein . '[content][results]';
+    
+        wp_editor(
+            $content, // Initial content
+            $editor_id, // Editor ID
+            array(
+                'textarea_name' => $name , // Set the name of the textarea
+                'media_buttons' => true, // Show media upload buttons
+                'textarea_rows' => 10, // Set the number of rows
+                'teeny' => false, // Use the full TinyMCE editor
+                'quicktags' => true, // Show Quicktags toolbar
+            )
+        );
     }
 
     public static function get_settings_page() {

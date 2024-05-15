@@ -2,13 +2,12 @@
 $system = $protein_settings['system'] ?? null;
 $activity_level = $protein_settings['activity_level'] ?? null;
 $activity_level_default = $protein_settings['defaults'] && $protein_settings['defaults']['activity_level'] ? $protein_settings['defaults']['activity_level'] : null;
-
+$results_content = isset($protein_settings['content']) && isset($protein_settings['content']['results']) ? $protein_settings['content']['results'] : null;
 ?>
 
 <div class="protein-calculator protein-calculator--compact">
     <div class="protein-calculator-inner">
         <form class="protein-calculator-form">
-
         <div class="protein-calculator__form-group protein-calculator__form-group--radio">
             <div class="protein-calculator__label">
                 <label class="main-label" for="Units">Weight</label>
@@ -60,7 +59,7 @@ $activity_level_default = $protein_settings['defaults'] && $protein_settings['de
             <div class="protein-calculator__inputs protein-calculator__inputs--select">
                 <select class="protein-calculator__goal-select" name="goal" id="goal">
                     <option value="maintain">Maintain</option>
-                    <option value="toning">Toning</option>
+                    <option value="toning">Tone Up</option>
                     <option value="muscle_growth">Muscle Growth</option>
                     <option value="weight_loss">Lose Weight</option>
                 </select>
@@ -87,22 +86,14 @@ $activity_level_default = $protein_settings['defaults'] && $protein_settings['de
         }
     ?>
         <div class="protein-calculator--results">
-            <div class="protein-calculator--results-inner" style="<?php echo $style_string; ?>">
+            <div class="protein-calculator--results-inner protein-calculator--results-range" style="<?php echo $style_string; ?>">
                 <div class="protein-calculator--results-default">
+                <div class="protein-calculator--results-low-end">
                     <div class="protein-calculator--results__label">
-                        <label for="protein">Protein Intake</label>
-                    </div>
-                    <div class="protein-calculator--results__value">
-                        <span class='the-result'>&mdash;</span><span id="calculator-system-suffix">g</span>
-                    </div>
-                </div>
-
-                <div class="protein-calculator--results-high-end">
-                    <div class="protein-calculator--results__label">
-                        <label for="protein">Protein Intake <br /> (High End)</label>
-                    </div>
-                    <div class="protein-calculator--results__high-end">
-                        <span class='the-result-high'>&mdash;</span><span id="calculator-system-suffix">g</span>
+                        <label for="protein">Your Optimal Protein Intake</label>
+                        <div class="protein-calculator--results__value">
+                            <span class='the-result'>&mdash;</span> g
+                        </div>
                     </div>
                 </div>
 

@@ -137,3 +137,55 @@
 .protein-calculator__activity-level-option-name {
     font-weight: 300;
 }
+
+.twwc_embed_shortcode {
+    background: #fdfdff;
+    border-color: #d5d7e9;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    color: #242748;
+    align-items: center;
+    border: 1px solid #d5d7e9;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: inter,-apple-system,blinkmacsystemfont,"Segoe UI",roboto,oxygen-sans,ubuntu,cantarell,"Helvetica Neue",sans-serif;
+    font-size: .875rem;
+    font-weight: 500;
+    height: 2.375rem;
+    line-height: normal;
+    padding-block: 0;
+    padding-inline: 1.125rem;
+    position: relative;
+    text-decoration: none;
+    transition: transform .3s ease,box-shadow .3s ease,background-color .3s ease;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 10px;
+}
+
+.twwc_embed_shortcode-clicked.twwc_embed_shortcode:before {
+    opacity: 0;
+    transition: .3s all ease;
+}
+
+.twwc_embed_shortcode-clicked.twwc_embed_shortcode:before {
+    content: 'copied!';
+    display: inline-block;
+    background: slategray;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    font-size: 11px;
+    position: absolute;
+    top: -15px;
+    right: 0;
+    opacity: 1;
+    transition: .3s all ease;
+}

@@ -1,9 +1,11 @@
 const calcData = {
     system: window.twwc_object?.protein_settings?.system ?? 'imperial',
+    useRange: window.twwc_object?.protein_settings?.use_range ?? true,
     weight: '',
     pregnant: 'No',
     activeLevel: '',
-    goal: ''
+    goal: '',
+    converting: false
 };
 
 const ui = {
@@ -50,8 +52,6 @@ const initWeightToggles = () => {
         });
     });
 }
-
-    
     
 const calcSettings = window.twwc_object;
 
@@ -61,6 +61,9 @@ const initUnitsAndMeasures = () => {
     
     ui.unitsMeasurement.forEach((unit) => {    
         unit.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            setCalcData('converting', true);
             const system = document.querySelector('.protein-calculator__units-measurement:checked').value;
             ui.toggleEls.forEach((el) => {
                 if(el.classList.contains('hide')) {
@@ -78,6 +81,8 @@ const initUnitsAndMeasures = () => {
 const convertToSystem = (system) => {
     if(!system) return;
 
+    setCalcData('converting', true);
+
     const weight_lbs = document.querySelector('.protein-calculator__weight--lbs').value;
     const weight_kg = document.querySelector('.protein-calculator__weight--kg').value;
     let value = '';
@@ -87,11 +92,13 @@ const convertToSystem = (system) => {
         value = Math.round((weight_lbs / 2.20462) * 100) / 100;
         value = 0 === value ? '' : value;
        document.querySelector('.protein-calculator__weight--kg').value = value;
+       setCalcData('converting', false);
     } else if('imperial' === system) {
         value = Math.round((weight_kg * 2.20462) * 100) / 100;
         value = 0 === value ? '' : value;
         document.querySelector('.protein-calculator__weight--lbs').value = value;
-    }
+        setCalcData('converting', false);
+    }    
 }
 
 const initPregnant = () => {
@@ -128,6 +135,10 @@ const initCalculation = () => {
     if(!ui.protienForm) return;
 
     ui.protienForm.addEventListener('input', (e) => {
+        if(calcData.converting) return;
+
+        console.log(calcData.converting, 'converting')
+
         let totalProtein = null;
         let totalProteinHigh = null;
 
@@ -162,8 +173,14 @@ const initCalculation = () => {
         totalProtein = parseInt(totalProtein) || 0;
         totalProteinHigh = parseInt(totalProteinHigh) || 0;
 
-        ui.results.innerText = Math.round(totalProtein) || '—';
-        ui.resultsHighEnd.innerText = Math.round(totalProteinHigh) || '—';
+        if(calcData.useRange) {
+            if((undefined !== totalProteinHigh && totalProteinHigh > 0) && (undefined !== totalProtein && totalProtein > 0)) {
+                ui.results.innerHTML = resultsRange(totalProtein, totalProteinHigh);
+            }
+        } else {        
+            ui.results.innerHTML = totalProtein;
+            ui.resultsHighEnd.innerHTML = totalProteinHigh;
+        }  
     });
 }
 
@@ -185,8 +202,6 @@ const basicProteinCalculation = (system, weight, activeLevel, goal, multiplier =
 
 
     if (activeLevel) { 
-        console.log(goalField, 'goalField')
-        console.log(calcSettings?.protein_settings?.activity_level[activeLevel].goal[goalField], 'goalField')
         multiplier = parseFloat(calcSettings?.protein_settings?.activity_level[activeLevel][prefix + activeLevel + suffix]);
         console.log(multiplier, 'multiplier')
     }
@@ -209,8 +224,6 @@ const basicProteinCalculationHigh = (system, weight, activeLevel, goal, multipli
     let suffix = 'imperial' !== system ? '_high_kg' : '_high_lbs';
     let goalFieldHighEnd = prefix + goal + suffix;
 
-    console.log(goal, 'goaal')
-
     if(activeLevel) {
         multiplier_high = parseFloat(calcSettings?.protein_settings?.activity_level[activeLevel][prefix + activeLevel + suffix]);
     }
@@ -224,7 +237,7 @@ const basicProteinCalculationHigh = (system, weight, activeLevel, goal, multipli
             multiplier_high = 0;
         }
     }
-    
+
     const value = weight * multiplier_high;
 
     return value;
@@ -265,6 +278,12 @@ const getHeight = (system) => {
         return document.querySelector('.protein-calculator__height--cm').value;
     } else if('imperial' === system) {        
         return height.feet * 12 + height.inches;
+    }
+}
+
+const resultsRange = (results, resultsHighEnd) => {
+    if(results && resultsHighEnd) {
+        return results + ' - ' + resultsHighEnd;
     }
 }
 
