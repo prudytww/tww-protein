@@ -219,7 +219,6 @@ class TwwcAdminMenu {
         $system = isset($input['system']) ? $input['system'] : 'imperial';
         $valid_input['system'] = $system;
         $valid_input['pregnant'] = 0 != $input['pregnant'] ? $input['pregnant'] : '';
-        $valid_input['pregnant']['enable'] = isset($input['pregnant']['enable']) ? $input['pregnant']['enable'] : 0;
         $valid_input['pregnant_lactating'] = (0 !=  $input['pregnant_lactating']) ?  $input['pregnant_lactating'] : '';
         $valid_input['defaults'] = $input['defaults'] ?? [];
         $valid_input['content'] = isset($input['content']) && is_array($input['content']) ? $input['content'] : [];
