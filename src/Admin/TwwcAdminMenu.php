@@ -219,6 +219,7 @@ class TwwcAdminMenu {
         $system = isset($input['system']) ? $input['system'] : 'imperial';
         $valid_input['system'] = $system;
         $valid_input['pregnant'] = 0 != $input['pregnant'] ? $input['pregnant'] : '';
+        $valid_input['pregnant']['enable'] = isset($input['pregnant']['enable']) ? $input['pregnant']['enable'] : 0;
         $valid_input['pregnant_lactating'] = (0 !=  $input['pregnant_lactating']) ?  $input['pregnant_lactating'] : '';
         $valid_input['defaults'] = $input['defaults'] ?? [];
         $valid_input['content'] = isset($input['content']) && is_array($input['content']) ? $input['content'] : [];
@@ -393,7 +394,7 @@ class TwwcAdminMenu {
 
     public function protein_calculator_settings_output() {
         echo '
-        <p>Use shortcode <span id="embed-shortcode" class="twwc_embed_shortcode" data-clipboard-text="[twwc_protein_calculator]">&lt;/&gt; [twwc_protein_calculator]</span> on any page to render the calculator.</p>
+        <p>Embed shortcode: <span id="embed-shortcode" class="twwc_embed_shortcode" data-clipboard-text="[twwc_protein_calculator]">&lt;/&gt; [twwc_protein_calculator]</span></p>
         <p><a class="protein-calculator__default" target="_blank" href="#">Populate Demo Data</a> - <a class="protein-calculator__clear" target="_blank" href="#">Clear Data</a>';
     }
 
@@ -462,7 +463,6 @@ class TwwcAdminMenu {
         <input class='protein-calculator__metric-input' style='width: 100px' class='".esc_attr($class)."' class='protein-calculator__weight' id='weight-kg' name='".esc_attr($this->option_name_protein)."[multiplier_weight_kg]' type='number' step='.001' value='" . esc_attr($value) . "' placeholder='' ".esc_attr($max)." /> <span>g/kg</span>";
 
         //High values
-
         $value = isset($options['multiplier_weight_high_lbs']) ? $options['multiplier_weight_high_lbs'] : '';
         $class = !empty($value) ? 'has-value' : 'required-value-missing-notice';
         $max = isset($args['max']) ? 'max="' . intval($args['max']) .'"': '';
@@ -491,8 +491,6 @@ class TwwcAdminMenu {
         /// I want to make the following echo a for each loop for the activity levels
         foreach($this->activity_levels as $activity_level) {
             $activity_level = str_replace(' ', '_', strtolower($activity_level));
-
-
 
             $activity_level_label = $activity_level_value[$activity_level]['label'] ?? null;
 
@@ -525,10 +523,6 @@ class TwwcAdminMenu {
             $weight_loss_value_high_lbs = $activity_level_value[$activity_level]['goal']['m_weight_loss_high_lbs'] ?? '';
             $weight_loss_value_high_kg = $activity_level_value[$activity_level]['goal']['m_weight_loss_high_kg'] ?? '';
 
-
-            
-
-
             echo "
             <div class='protein-calculator__form-group'>
                 <div class='protein-calculator__label'>
@@ -537,7 +531,6 @@ class TwwcAdminMenu {
                         <input type='checkbox' name='".esc_attr($this->option_name_protein)."[activity_level][" . esc_attr($activity_level) ."][enable]' value='1' ".(isset($activity_level_enabled) && 1 == $activity_level_enabled ? 'checked' : '')." /> <span>Enable</span>
                         <input type='radio' name='".esc_attr($this->option_name_protein)."[defaults][activity_level]' value='".esc_html($activity_level)."' ".($activity_level_default == $activity_level ? 'checked' : '')." /> <span>Set as Default</span>
                     </div>
-                    
                     <div class='protein-calculator__activity-level-label'>
                         <label>Option Name</label>
                         <input id='acitivity_level_label' class='protein-calculator__activity-level-option-name' style='width: 275px;' width='275' type='text' name='".esc_attr($this->option_name_protein)."[activity_level][" . esc_attr($activity_level) ."][label]' value='".esc_html($activity_level_label)."' />
@@ -551,7 +544,7 @@ class TwwcAdminMenu {
                     <input style='width: 100px' class='".esc_attr($class)." protein-calculator__metric-input' class='protein-calculator__weight' id='activity-level' name='".esc_attr($this->option_name_protein)."[activity_level][" . esc_attr($activity_level) ."][m_".esc_html($activity_level)."_high_kg]' type='number' step='.001' value='" . esc_attr($activity_level_value_high_kg) . "' /> <span>g/kg (high)</span>
                     <div class='protien-calculator__goals'>
                         <div class='protein-calculator__goal'>
-                            <label for='activity-level'>Maintain</label>
+                            <label>Maintain</label>
                             <div class='protein-calculator__multipliers'>
                                 <input class='protein-calculator__imperial-input' width='75' type='number' step='.001' name='".esc_attr($this->option_name_protein)."[activity_level][".esc_html($activity_level)."][goal][m_maintain_lbs]' value='".esc_html($maintain_value_lbs)."' /> <span>g/lb</span>
                                 <input class='protein-calculator__metric-input' width='75' type='number' step='.001' name='".esc_attr($this->option_name_protein)."[activity_level][".esc_html($activity_level)."][goal][m_maintain_kg]' value='".esc_html($maintain_value_kg)."' /> <span>g/kg</span>
@@ -561,7 +554,7 @@ class TwwcAdminMenu {
                             </div>
                         </div>
                         <div class='protein-calculator__goal'>
-                            <label for='sedentary-toning'>Tone Up</label>
+                            <label>Tone Up</label>
                             <div class='protein-calculator__multipliers'>
                                 <input class='protein-calculator__imperial-input' width='75' id='sedentary-toning' type='number' step='.001' name='".esc_attr($this->option_name_protein)."[activity_level][".esc_html($activity_level)."][goal][m_toning_lbs]' value='" . esc_attr($toning_value_lbs) . "' /><span>g/lb</span>
                                 <input class='protein-calculator__metric-input' width='75' id='sedentary-toning' type='number' step='.001' name='".esc_attr($this->option_name_protein)."[activity_level][".esc_html($activity_level)."][goal][m_toning_kg]' value='" . esc_attr($toning_value_kg) . "' /><span>g/kg</span>
@@ -571,7 +564,7 @@ class TwwcAdminMenu {
                             </div>
                         </div>
                         <div class='protein-calculator__goal'>
-                            <label for='sedentary-maintain'>Muscle Growth</label>
+                            <label>Build Muscle</label>
                             <div class='protein-calculator__multipliers'>
                                 <input class='protein-calculator__imperial-input' width='75' id='sedentary-maintain' type='number' step='.001' name='".esc_attr($this->option_name_protein)."[activity_level][".esc_html($activity_level)."][goal][m_muscle_growth_lbs]' value='" . esc_attr($muscle_growth_value_lbs) . "' /><span>g/lb</span>
                                 <input class='protein-calculator__metric-input' width='75' id='sedentary-maintain' type='number' step='.001' name='".esc_attr($this->option_name_protein)."[activity_level][".esc_html($activity_level)."][goal][m_muscle_growth_kg]' value='" . esc_attr($muscle_growth_value_kg) . "' /><span>g/kg</span>
@@ -581,7 +574,7 @@ class TwwcAdminMenu {
                             </div>
                         </div>       
                         <div class='protein-calculator__goal protein-calculator__goal--static'>
-                            <label for='sedentary-muscle-growth'>Lose Weight</label>
+                            <label>Lose Weight</label>
                             <div class='protein-calculator__multipliers'>
                                 <input class='protein-calculator__imperial-input' width='75' id='sedentary-muscle-growth' type='number' step='.001' name='".esc_attr($this->option_name_protein)."[activity_level][".esc_html($activity_level)."][goal][m_weight_loss_lbs]' value='".esc_attr($weight_loss_value_lbs ) . "' /> <span>g/lb</span>
                                 <input class='protein-calculator__metric-input' width='75' id='sedentary-muscle-growth' type='number' step='.001' name='".esc_attr($this->option_name_protein)."[activity_level][".esc_html($activity_level)."][goal][m_weight_loss_kg]' value='".esc_attr($weight_loss_value_kg ) . "' /> <span>g/kg</span>
