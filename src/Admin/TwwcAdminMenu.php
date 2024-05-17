@@ -33,25 +33,6 @@ class TwwcAdminMenu {
         'Super Active',
     ];
 
-    /**
-     * Schema, such as max character count, for our options
-     *
-     * @var array[]
-     */
-    private $fields = [
-        'age_range' => [
-            "max" => 24,
-            'title' => "Age Range",
-            "placeholder" => "Age Range",
-
-        ],
-        'height_range' => [
-            "max" => 32,
-            'title' => "Height Range",
-            "placeholder" => "Height Range",
-        ],
-    ];
-
     public function __construct() {
         $settings = TwwcOptions::get_option($this->option_name, []);
 
@@ -123,7 +104,6 @@ class TwwcAdminMenu {
 
         wp_enqueue_script( 'twwc-admin-js', TWWC_PROTEIN_PLUGIN_URL . 'resources/js/twwc-admin.js', [], '1.32.3', true );
 
-        //localize settings in script
         wp_localize_script('twwc-admin-js', 'twwc_admin_object', [
             'settings' => $this->settings,
             'protein_settings' => $this->protein_settings,
@@ -160,9 +140,6 @@ class TwwcAdminMenu {
          * 
          * Protein Calculator Settings
          */
-
-        
-
         add_settings_section(
             'twwc-protein-calculator-settings-section',
             __('TWWC Settings', 'twwc-calculator'),
@@ -213,13 +190,14 @@ class TwwcAdminMenu {
     }
 
     public function convert_and_update_options(array $input) {
-        $schema = $this->fields;
-        $valid_input = $this->settings && is_array($this->settings) ? $this->settings : [];
+        $valid_input = $this->get_protein_settings();
 
-        $system = isset($input['system']) ? $input['system'] : 'imperial';
+        $system = isset($input['system']) && is_string($input['system']) ? $input['system'] : 'imperial';
         $valid_input['system'] = $system;
+
         $valid_input['pregnant'] = 0 != $input['pregnant'] ? $input['pregnant'] : '';
         $valid_input['pregnant_lactating'] = (0 !=  $input['pregnant_lactating']) ?  $input['pregnant_lactating'] : '';
+
         $valid_input['defaults'] = $input['defaults'] ?? [];
         $valid_input['content'] = isset($input['content']) && is_array($input['content']) ? $input['content'] : [];
 
@@ -385,7 +363,7 @@ class TwwcAdminMenu {
     }
 
     /*
-     * Common settings
+     * Protein Calculator settings
      *
      *
      *
@@ -635,6 +613,10 @@ class TwwcAdminMenu {
                 'quicktags' => true, // Show Quicktags toolbar
             )
         );
+    }
+
+    public function get_protein_settings() {
+        return $this->protein_settings && is_array($this->protein_settings) ? $this->protein_settings : [];
     }
 
     public static function get_settings_page() {

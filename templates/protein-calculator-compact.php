@@ -12,6 +12,7 @@ $results_content = isset($protein_settings['content']) && isset($protein_setting
                 <div class="protein-calculator__label">
                     <label class="main-label" for="Units">Weight</label>
                 </div>
+
                 <!-- here we will have a radio toggle for the units after the input -->
                 <div class="protein-calculator__inputs ">
                     <input class="protein-calculator__weight protein-calculator__weight--lbs <?php echo 'metric' === $system ? 'hide' : '';  ?>" type="number" id="weight_lbs" name="weight_lbs" placeholder="Weight in Pounds">
@@ -19,11 +20,12 @@ $results_content = isset($protein_settings['content']) && isset($protein_setting
 
                     <div class="protein-calculator__inputs--radio-reg-label"> 
                         <div>
-                        <input step=".001" class="protein-calculator__weight-toggle protein-calculator__units-measurement"  type="radio" id="imperial" name="units" value="imperial" <?php echo 'imperial' === $system ? 'checked' : '';  ?>>
-                        <label  for="imperial">lbs</label>
+                            <input step=".001" class="protein-calculator__weight-toggle protein-calculator__units-measurement"  type="radio" id="imperial" name="units" value="imperial" <?php echo 'imperial' === $system ? 'checked' : '';  ?>>
+                            <label  for="imperial">lbs</label>
                         </div>
                         <div>
-                        <input step=".001" class="protein-calculator__weight-toggle protein-calculator__units-measurement" type="radio" id="metric" name="units" value="metric" <?php echo 'metric' === $system ? 'checked' : '';  ?>><label for="metric">kg</label>
+                            <input step=".001" class="protein-calculator__weight-toggle protein-calculator__units-measurement" type="radio" id="metric" name="units" value="metric" <?php echo 'metric' === $system ? 'checked' : '';  ?>>
+                            <label for="metric">kg</label>
                         </div>
                     </div>
                 </div>
@@ -90,10 +92,10 @@ $results_content = isset($protein_settings['content']) && isset($protein_setting
                 <div class="protein-calculator--results-default">
                     <div class="protein-calculator--results-low-end">
                         <div class="protein-calculator--results__label">
-                            <label for="protein">Your Optimal Protein Intake</label>
+                            <label class="results-header" for="protein" style="text-align: center; color: black; margin-bottom: 25px; display: block; font-weight: 200;">Your Optimal Protein Intake</label>
                             <div class="protein-calculator--results__value">
-                                <span class='the-result'>&mdash;</span> 
-                                <p style="margin-top: 3px; font-size: 18px;">grams/day</p>
+                                <span style="text-align: center; color: black; margin-bottom: 15px; display: block;" class='the-result'>&mdash;</span> 
+                                <p style="text-align: center; margin-top: 3px; font-size: 18px; padding-bottom: 0;  display: block;">grams/day</p>
                             </div>
                         </div>
                     </div>

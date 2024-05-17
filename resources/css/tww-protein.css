@@ -63,6 +63,12 @@
 } 
 
 @media(max-width: 768px) {
+    .protein-calculator--large .protein-calculator__label {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
     .protein-calculator__inputs {
         max-width: 100%;
     } 
@@ -233,6 +239,10 @@ input[type="radio"].toggle-right + label {
         max-width: 100%;
         padding-left: 0;
     }
+
+    .protein-calculator--large .protein-calculator__inputs {
+        max-width: 100%;
+    }
 }
 
 .protein-calculator--results-inner {
@@ -248,10 +258,15 @@ input[type="radio"].toggle-right + label {
     margin-bottom: 10px;
 }
 
-.protein-calculator--results__value,
-.protein-calculator--results__high-end {
-    font-size: 28px;
-    padding: 20px;
+.protein-calculator--results__value .the-result {
+    font-size: 44px;
+    font-family: Bebas Neue Pro Expanded ExtraBold;
+    color: black;
+    margin-bottom: 15px;
+}
+
+.results-header {
+    font-family: Bebas Neue Pro Expanded ExtraBold;
 }
 
 .protein-calculator__toggle-units .input-group span {
@@ -349,11 +364,6 @@ input[type="radio"].toggle-right + label {
     margin-right: 10px;
 }
 
-.protein-calculator--results-default,
-protein-calculator--results-high-end {
-    margin-bottom: 20px;
-}
-
 .protein-calculator__inputs--radio-reg-label > div {
     display: flex;
     align-items: center;
@@ -417,14 +427,11 @@ protein-calculator--compact  .protein-calculator-inner > div {
     }
 }
 
-
 /* Customizing the focus outline */
 .protein-calculator--compact input:focus,
 .protein-calculator--compact select:focus {
     border-color: var(--tww-green) !important; /* Change border color to green when focused */
 }
-
-
 
 /* Default style for radio button and label */
 .protein-calculator__inputs--radio-reg-label input[type="radio"] {

@@ -18,6 +18,13 @@
     --active-alt: rgb(22, 101, 52);
     --canceled: var(--red);
     --pending: rgb(255, 255, 0);
+
+
+    --radio-switch-width: 186px;
+    --radio-switch-height: 46px;
+    --radio-switch-padding: 3px;
+    --radio-switch-radius: 50em;
+    --radio-switch-animation-duration: 0.3s;
 }
 
 .toplevel_page_twwc-calculator .wp-first-item {
@@ -189,3 +196,42 @@
     opacity: 1;
     transition: .3s all ease;
 }
+  
+.radio__switch-wrapper {
+    display: inline-flex;
+    padding: var(--radio-switch-padding);
+    border-radius: var(--radio-switch-radius);
+    border: 1px solid var(--color-contrast-low);
+}
+
+.radio__switch-wrapper {
+    height: calc(var(--radio-switch-height) - 2*var(--radio-switch-padding));
+    width: calc(var(--radio-switch-width)*0.5 - var(--radio-switch-padding));
+}
+
+.radio__switch-wrapper label {
+    display: block;
+    line-height: calc(var(--radio-switch-height) - 2*var(--radio-switch-padding));
+    text-align: center;
+    border-radius: var(--radio-switch-radius);
+}
+
+
+.radio__switch-item {
+    position: relative;
+}
+  
+.radio-switch__marker {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    width: 100%;
+    background-color: var(--color-primary);
+    border-radius: var(--radio-switch-radius); 
+    transition: transform var(--radio-switch-animation-duration);
+}
+
+.radio-switch__input:checked ~ & { 
+    transform: translateX(100%);
+}   
